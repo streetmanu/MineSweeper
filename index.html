@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script type="text/javascript" src="js/function.js"></script>
+
+		<!-- Modules -->
+	    <script src="js/app.js"></script>
+
+	    <!-- Controllers -->
+	    <script src="js/controllers/MainController.js"></script>
+	</head>
+	<body ng-app="mineSweeper" ng-controller="mainController">
+		<h1> MineSweeper </h1>
+		<form>
+		    <label>Height:</label>
+		    <input type="text" min="1" max="300" ng-model="game.height">
+
+		    <label>Width:</label>
+		    <input type="text" min="0" max="300" ng-model="game.width">
+
+		    <label>Landmine number:</label>
+		    <input type="text" min="1" max="89 999" ng-model="game.minesNumber">
+		</form>
+		<form>
+			<label>Superman mode</label>
+			<input type="checkbox" ng-model="game.superman" ng-change="supermanChecked()">
+		</form>
+		<div class="wrapper">
+		    <button class="center">New Game</button>
+		</div>
+		<div class="wrapper">
+			<label class="center">Flags left:</label>
+			<p name="flagsLeft" class="center" ng-model="game.flags">{{game.flags}}</p>
+		</div>
+
+		<table class ="minefield">
+		    <tr ng-repeat="row in minefield.rows">
+		        <td ng-repeat="spot in row.spots" ng-click="uncoverCell(spot)" ng-right-click="flagACell(spot)">
+		        	<img ng-if="spot.flagged" src="img/flag-mine.png">
+		            <img ng-if="spot.isCovered && !spot.flagged" src="img/covered.png">
+					<img ng-if="!spot.isCovered && (spot.content == 'empty' || spot.content == 'emptyDiscovered')" src="img/empty.png">
+					<img ng-if="!spot.isCovered && spot.content == 'landMine'" src="img/landMine.png">
+					<img ng-if="!spot.isCovered && spot.content == 1" src="img/1.png">
+				    <img ng-if="!spot.isCovered && spot.content == 2" src="img/2.png">
+				    <img ng-if="!spot.isCovered && spot.content == 3" src="img/3.png">
+				    <img ng-if="!spot.isCovered && spot.content == 4" src="img/4.png">
+				    <img ng-if="!spot.isCovered && spot.content == 5" src="img/5.png">
+				    <img ng-if="!spot.isCovered && spot.content == 6" src="img/6.png">
+				    <img ng-if="!spot.isCovered && spot.content == 7" src="img/7.png">
+				    <img ng-if="!spot.isCovered && spot.content == 8" src="img/8.png">
+		        </td>
+		    </tr>
+		</table>
+	</body>
+</html>
