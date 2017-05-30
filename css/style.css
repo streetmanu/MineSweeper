@@ -1,0 +1,23 @@
+.wrapper {
+    text-align: center;
+}
+
+.center{
+	position: static;
+    left: 50%;
+}
+
+table, td {
+	margin: auto;
+	position: relative;
+	top: 80 px;
+}
+
+.minefield {
+    line-height:0;
+    border-spacing:0;
+}
+
+.minefield td {
+    padding:0
+}
