@@ -41,7 +41,7 @@
 		        	<img ng-if="spot.flagged" src="img/flag-mine.png">
 		            <img ng-if="spot.isCovered && !spot.flagged" src="img/covered.png">
 					<img ng-if="!spot.isCovered && (spot.content == 'empty' || spot.content == 'emptyDiscovered')" src="img/empty.png">
-					<img ng-if="!spot.isCovered && spot.content == 'landMine'" src="img/landMine.png">
+					<img ng-if="!spot.isCovered && spot.content == 'landMine' && !spot.flagged" src="img/landMine.png">
 					<img ng-if="!spot.isCovered && spot.content == 1" src="img/1.png">
 				    <img ng-if="!spot.isCovered && spot.content == 2" src="img/2.png">
 				    <img ng-if="!spot.isCovered && spot.content == 3" src="img/3.png">
