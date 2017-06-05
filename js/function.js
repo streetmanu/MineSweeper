@@ -126,7 +126,7 @@ function playerWin(minefield, width, height){
 }
 
 function playerLose(spot){
-	if(spot.content === "landMine"){	// if the player clicks on a mine then a message show
+	if(spot.content === "landMine" && spot.flagged === false){	// if the player clicks on a mine then a message show
 		alert("You lose!");
 		return true
 	}
@@ -157,87 +157,86 @@ function discoverEmptyNeighbors(spot, minefield, width, height){
 		{
 			var isSpot = getSpot(minefield,i,j);
 			if(isSpot === spot){
-				uncoverEmptyNeighbors(spot, i, j, minefield, width, height); // find the (x;y) of the spot and send it to the uncovery cell function
+				uncoverEmptyNeighbors(spot, i, j, minefield, width-1, height-1); // find the (x;y) of the spot and send it to the uncovery cell function
 				break;
 			}	
 		}
 }
-
 function uncoverEmptyNeighbors(spot, row, column, minefield, width, height){
 
 	if (spot.content !== "empty") // if the cell is different than empty, it returns
 		return;
 	
-	if(row > 0){
-		if(column > 0){
+	if(column> 0){
+		if(row> 0){
 			var spotToUncover = getSpot(minefield, row-1, column-1); // uncover the left cell above  
 			spotToUncover.isCovered = false;			
 		}					
-			var spotToUncover = getSpot(minefield, row-1, column); // uncover the left cell
+			var spotToUncover = getSpot(minefield, row, column-1); // uncover the left cell
 			spotToUncover.isCovered = false;
 					
-		if (column < width){
-			var spotToUncover = getSpot(minefield, row-1, column+1); // uncover the left cell below
+		if (row < width){
+			var spotToUncover = getSpot(minefield, row+1, column-1); // uncover the left cell below
 			spotToUncover.isCovered = false;
 		}
 	}
 	
-	if(column > 0){
-		var spotToUncover = getSpot(minefield, row, column-1); // uncover the cell above
+	if(row > 0){
+		var spotToUncover = getSpot(minefield, row-1, column); // uncover the cell above
 		spotToUncover.isCovered = false;	
 	}
 	
-	if(column < width){
-		var spotToUncover = getSpot(minefield, row, column +1); // uncover the cell below
+	if(row < width){
+		var spotToUncover = getSpot(minefield, row+1, column); // uncover the cell below
 		spotToUncover.isCovered = false;			
 	}
 
-	if(row < height){
-		if(column > 0){
-			var spotToUncover = getSpot(minefield, row+1, column-1); // uncover the right cell above
+	if(column < height){
+		if(row > 0){
+			var spotToUncover = getSpot(minefield, row-1, column+1); // uncover the right cell above
 			spotToUncover.isCovered = false;			
 		}
 		
-		var spotToUncover = getSpot(minefield, row+1, column); // uncover the right cell 
+		var spotToUncover = getSpot(minefield, row, column+1); // uncover the right cell 
 		spotToUncover.isCovered = false;
 
-		if(column < width){
+		if(row < width){
 			var spotToUncover = getSpot(minefield, row+1, column+1); // uncover the right cell below
 			spotToUncover.isCovered = false;			
 		}
 	}
 	spot.content = "emptyDiscovered";
 
-	if(row > 0){
-		if(column > 0){
+	if(column > 0){
+		if(row > 0){
 			var leftAboveSpot = getSpot(minefield, row-1, column-1);				
 			uncoverEmptyNeighbors(leftAboveSpot, row-1, column-1, minefield, width, height); // send the left cell above
 		}
-		var leftSpot = getSpot(minefield,row-1,column);
-		uncoverEmptyNeighbors(leftSpot, row-1, column,   minefield, width, height);	// send the left cell
-		if (column < width){
-			var leftBelowSpot = getSpot(minefield,row-1,column+1);
-			uncoverEmptyNeighbors(leftBelowSpot, row-1, column+1, minefield, width, height);	// send the left cell below
+		var leftSpot = getSpot(minefield,row,column-1);
+		uncoverEmptyNeighbors(leftSpot, row, column-1, minefield, width, height);	// send the left cell
+		if (row < width){
+			var leftBelowSpot = getSpot(minefield,row+1,column-1);
+			uncoverEmptyNeighbors(leftBelowSpot, row+1, column-1, minefield, width, height);	// send the left cell below
 		}
 	}
-	if(column > 0){
-		var aboveSpot = getSpot(minefield, row, column-1);
-		uncoverEmptyNeighbors(aboveSpot, row,   column-1, minefield, width, height);	// send the cell above
+	if(row> 0){
+		var aboveSpot = getSpot(minefield, row-1, column);
+		uncoverEmptyNeighbors(aboveSpot, row-1,   column, minefield, width, height);	// send the cell above
 	}
-	if(column < width){
-		var belowSpot = getSpot(minefield, row, column+1);
-		uncoverEmptyNeighbors(belowSpot, row,   column+1, minefield, width, height);	// send the cell below
+	if(row < width){
+		var belowSpot = getSpot(minefield, row+1, column);
+		uncoverEmptyNeighbors(belowSpot, row+1, column, minefield, width, height);	// send the cell below
 	}
-	if(row < height){
-		if(column > 0){
-			var rightAboveSpot = getSpot(minefield, row+1, column-1);
-			uncoverEmptyNeighbors(rightAboveSpot, row+1, column-1, minefield, width, height);	// send the right cell above
+	if(column< height){
+		if(row> 0){
+			var rightAboveSpot = getSpot(minefield, row-1, column+1);
+			uncoverEmptyNeighbors(rightAboveSpot, row-1, column+1, minefield, width, height);	// send the right cell above
 		}
-		var rightSpot = getSpot(minefield, row+1, column);
-		uncoverEmptyNeighbors(spot, row+1, column,   minefield, width, height);	// send the right cell 
-		if(column < width){
+		var rightSpot = getSpot(minefield, row, column+1);
+		uncoverEmptyNeighbors(rightSpot, row, column+1,   minefield, width, height);	// send the right cell 
+		if(row < width){
 			var rightBelowSpot = getSpot(minefield,row+1,column+1);
-			uncoverEmptyNeighbors(spot, row+1, column+1, minefield, width, height);	// send the right cell below
+			uncoverEmptyNeighbors(rightBelowSpot, row+1, column+1, minefield, width, height);	// send the right cell below
 		}
 	}
 }
@@ -263,4 +262,3 @@ function undoSupermanMode(minefield,width,height){
 				spot.flagged = false;
 		}
 }
-
