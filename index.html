@@ -39,17 +39,17 @@
 		    <tr ng-repeat="row in minefield.rows">
 		        <td ng-repeat="spot in row.spots" ng-click="uncoverCell(spot)" ng-right-click="flagACell(spot)">
 		        	<img ng-if="spot.flagged" src="img/flag-mine.png">
-		            <img ng-if="spot.isCovered && !spot.flagged" src="img/covered.png">
-					<img ng-if="!spot.isCovered && (spot.content == 'empty' || spot.content == 'emptyDiscovered')" src="img/empty.png">
-					<img ng-if="!spot.isCovered && spot.content == 'landMine'" src="img/landMine.png">
-					<img ng-if="!spot.isCovered && spot.content == 1" src="img/1.png">
-				    <img ng-if="!spot.isCovered && spot.content == 2" src="img/2.png">
-				    <img ng-if="!spot.isCovered && spot.content == 3" src="img/3.png">
-				    <img ng-if="!spot.isCovered && spot.content == 4" src="img/4.png">
-				    <img ng-if="!spot.isCovered && spot.content == 5" src="img/5.png">
-				    <img ng-if="!spot.isCovered && spot.content == 6" src="img/6.png">
-				    <img ng-if="!spot.isCovered && spot.content == 7" src="img/7.png">
-				    <img ng-if="!spot.isCovered && spot.content == 8" src="img/8.png">
+		            	<img ng-if="spot.isCovered && !spot.flagged" src="img/covered.png">
+				<img ng-if="!spot.isCovered && (spot.content == 'empty' || spot.content == 'emptyDiscovered')" src="img/empty.png">
+				<img ng-if="!spot.isCovered && spot.content == 'landMine' && !spot.flagged" src="img/landMine.png">
+				<img ng-if="!spot.isCovered && spot.content == 1" src="img/1.png">
+				<img ng-if="!spot.isCovered && spot.content == 2" src="img/2.png">
+				<img ng-if="!spot.isCovered && spot.content == 3" src="img/3.png">
+				<img ng-if="!spot.isCovered && spot.content == 4" src="img/4.png">
+				<img ng-if="!spot.isCovered && spot.content == 5" src="img/5.png">
+				<img ng-if="!spot.isCovered && spot.content == 6" src="img/6.png">
+				<img ng-if="!spot.isCovered && spot.content == 7" src="img/7.png">
+				<img ng-if="!spot.isCovered && spot.content == 8" src="img/8.png">
 		        </td>
 		    </tr>
 		</table>
